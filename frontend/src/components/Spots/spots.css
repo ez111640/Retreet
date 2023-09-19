@@ -1,0 +1,304 @@
+
+.spot-list ul {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 20px;
+    row-gap: 10px;
+    width: 100% ;
+}
+
+.spot-list{
+    margin-left: 40px;
+    margin-right: auto;
+    align-self: center;
+    width: 100%;
+    max-width: 950px;
+}
+
+.spotDetailHeader {
+    display: flex;
+
+}
+
+.show-num-reviews {
+   font-size: 16px;
+   font-weight: bold;
+}
+
+.prevImage {
+    width: 190px;
+    height: 190px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.location-rating {
+    display: flex;
+
+    justify-content: space-between;
+    margin-bottom: 0px;
+}
+
+
+.spot-location{
+    font-size: 12px;
+    color: black;
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+
+.spot-location a{
+
+    color: black;
+}
+
+.spot-rating i{
+    font-size: 12px;
+}
+
+.spot-rating {
+    margin-top: 5px;
+    font-size: 12px;
+    margin-bottom: 0px;
+    display: flex;
+    font-weight: bold;
+
+}
+/*
+.fa-solid {
+    font-size: 8px;
+} */
+
+
+.spot-name {
+    color: grey;
+    font-size: 12px;
+    margin-top: 3px;
+    margin-bottom: 0px;
+}
+
+.res-date {
+    font-size: 12px;
+    margin-top: 3px;
+    color: grey;
+    margin-bottom: 0px;
+}
+
+.spot-price {
+    margin-top: 4px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+
+
+.spot-detail-wrapper {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1000px;
+
+}
+
+.spot-detail-photo-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-radius: 26px;
+    overflow: hidden;
+    column-gap: 10px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.detail-prev-photo {
+    width: 400px;
+    height: 380px;
+    object-fit: cover;
+}
+
+
+.additional-photos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 8px;
+    row-gap: 8px;
+}
+
+.additional-photos img {
+    width: 202px;
+    height: 184px;
+    object-fit: cover;
+
+}
+
+.spot-detail-info {
+    display: flex;
+    column-gap: 10px;
+    font-size: 18px;
+}
+
+.spot-detail-info i{
+    font-size: 14px;
+}
+
+.spot-detail-host-info {
+    display: flexbox;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+.spot-detail-host-info button {
+    font-size: 18px;
+    border-radius: 10px;
+    color: light grey;
+    padding: 10px;
+    color: white;
+}
+.res-container {
+    margin-right: 160px;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 10px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+}
+
+.resInfo{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    column-gap: 10px;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+
+}
+
+.fa-solid {
+    display: flex;
+    align-items: center;
+}
+
+
+.resInfo i{
+    font-size: 14px;
+    padding-bottom: 4px;
+    display: flex;
+    justify-content: center;
+}
+
+.star-area {
+    display: flex;
+    align-items: center;
+    justify-self: center;
+
+}
+
+
+
+.res-reviews {
+    display: flex;
+    column-gap: 10px;
+    margin-left: 20px;
+    align-items: center;
+}
+.res-reviews i {
+    font-size: 16px;
+}
+
+.manage-spot-list {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 30px;
+    row-gap: 30px;
+}
+.delete-modal {
+    display: flex;
+}
+
+.spot-detail-sub-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+
+}
+
+.cost input {
+    width: 96%;
+}
+
+
+.spot-form-header {
+    display: flex;
+    justify-content: center;
+}
+
+.reserve-button {
+    font-size: 18px;
+    padding: 5px 80px;
+    background-color: #ff385c;
+    color: white;
+    margin-top: 0px;
+    justify-self: center ;
+}
+
+.create-spot-button {
+    margin-bottom: 20px;
+    width: 200px;
+
+}
+
+.manage-spots-header {
+    display: grid;
+    margin-left: 80px;
+}
+
+
+
+a {
+    color: black;
+}
+
+.post-review-button {
+    background-color: rgb(58, 62, 58);
+    color: white;
+    margin-bottom: 10px;
+}
+
+
+.form-submit-button {
+    background-color:#ff385c;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-submit-button-container {
+    display: flex;
+}
+
+h5, h3 {
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+h5 {
+    font-size: 14px;
+}
+
+hr {
+    margin-top: 20px;
+}
+
+
+.error-class {
+    color: red;
+    font-size: 14px;
+}
