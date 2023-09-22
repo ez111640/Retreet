@@ -50,8 +50,12 @@ export const getAllSpots = () => async dispatch => {
             const images = await csrfFetch(`/api/spots/${spot.id}/images`)
             const spotImages = await images.json();
             spot.images = spotImages.SpotImages
+            const bookings = await csrfFetch(`/api/spots/${spot.id}/bookings`)
+            const spotBookings = await bookings.json();
+            spot.bookings = spotBookings.Bookings
         }
         )
+
         await dispatch(loadSpots(spots.Spots));
         return spots;
     } else {
@@ -64,7 +68,7 @@ export const getCurrentSpots = () => async dispatch => {
     const response = await csrfFetch('/api/spots/current')
     if (response.ok) {
         const spots = await response.json();
-        dispatch(loadSpots(spots.Spots))
+        await dispatch(loadSpots(spots.Spots))
         return spots
     } else {
         const err = await response.json();
@@ -75,7 +79,7 @@ export const getOneSpot = (spotId) => async dispatch => {
     const response = await csrfFetch(`/api/spots/${spotId}`)
     if (response.ok) {
         const spot = await response.json();
-        dispatch(loadSpot(spot.spot.id))
+        await dispatch(loadSpot(spot.spot.id))
     } else {
         const err = await response.json();
         return err;
@@ -182,9 +186,10 @@ export const editSpot = (spot, spotImages, user) => async dispatch => {
     })
     // if (response.ok) {
     const newSpot = await response.json();
+    console.log("NEWSPOT", newSpot)
     if (newSpot) {
-        await dispatch(updateSpot(spot.newSpot, spotImages, user))
-        return spot;
+        await dispatch(updateSpot(newSpot, spotImages, user))
+        await dispatch(updateSpot(spot))
     }
     // } else {
     //     const err = response.json();
@@ -207,7 +212,7 @@ export const postImageUpdateSpot = (spot, spotImages, user) => async dispatch =>
             spot.previewImage.push(image)
         }
         spot.Owner = user;
-        dispatch(updateSpot(spot))
+        await dispatch(updateSpot(spot))
         return spot
     }
 }
@@ -218,12 +223,10 @@ export const deleteSpot = (spotId) => async dispatch => {
             method: 'DELETE'
 
         })
-    dispatch(removeSpot(spotId))
+    await dispatch(removeSpot(spotId))
 
 }
 const initialState = {
-    spots: {},
-    spot: {}
 }
 
 
@@ -231,27 +234,26 @@ const spotsReducer = (state = initialState, action) => {
     let newState;
     switch (action.type) {
         case LOAD_SPOTS:
-            const spotsState = { ...state, spots: { ...state.spots }, spot: { ...state.spot } };
+            const spotsState = { ...state };
             action.spots.forEach(
-                (spot) => spotsState.spots[spot.id] = spot
+                (spot) => spotsState[spot.id] = spot
             )
             return spotsState
         case LOAD_SPOT:
-            newState = { ...state, spots: { ...state.spots } }
+            newState = { ...state}
             return newState[action.spotId]
         case ADD_SPOT:
-            newState = { ...state, spots: { ...state.spots }, };
-            newState.spots[action.spot.id] = action.spot;
-            newState.spot = action.spot;
+            newState = { ...state };
+            newState[action.spot.id] = action.spot;
             return newState;
         case REMOVE_SPOT:
-            newState = { ...state, spots: { ...state.spots } }
-            delete newState.spots[action.spotId]
+            newState = { ...state }
+            delete newState[action.spotId]
             return newState;
 
         case UPDATE_SPOT: {
-            newState = { ...state, spots: { ...state.spots }, spot: { ...state.spot }, currentUserSpots: { ...state.currentUserSpots } }
-            newState.spots[action.spotId] = action.spotId
+            newState = { ...state}
+            newState[action.spot.id] = action.spot
             return newState;
         }
         default:

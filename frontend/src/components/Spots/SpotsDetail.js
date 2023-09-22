@@ -7,6 +7,8 @@ import OpenModalButton from "../Navigation/OpenModalMenuItem";
 import UpcomingFeatureModal from "../UpcomingFeatureModal";
 import PostReviewModal from "../PostReviewModal/PostReviewModal";
 import { getAllReviews } from "../../store/reviews";
+import { getSpotBookings } from "../../store/bookings";
+import { CreateBookingModal } from "../Bookings/SpotBookings/CreateBookingModal";
 
 function SpotsDetail() {
     const dispatch = useDispatch();
@@ -18,11 +20,11 @@ function SpotsDetail() {
     console.log("ALLSPOTS", allSpots)
 
     let reviewsArr = Object.values(allReviews)
-    const spotArr = Object.values(allSpots.spots)
+    const spotArr = Object.values(allSpots)
 
     let spot
-    console.log("SPOTID", spotId)
-    if (spotArr.length) spot = spotArr[spotId -1]
+    console.log("SPOTID", spotArr)
+    if (spotArr.length) spot = spotArr.find((spot) => spot.id == spotId)
 
     console.log("SPOT", spot)
 
@@ -44,17 +46,17 @@ function SpotsDetail() {
 
 
     let img;
-    if (spot.previewImage) img = spot.previewImage
+    if (spot?.previewImage) img = spot.previewImage
     else img = "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg";
 
     let imgArr = [];
-    if (spot.previewImage && spot.previewImage.length) imgArr = spot.previewImage.slice(1);
+    if (spot?.previewImage && spot.previewImage.length) imgArr = spot.previewImage.slice(1);
 
     let hostName;
-    if (spot.User) hostName = `${spot.User.firstName} ${spot.User.lastName}`
+    if (spot?.User) hostName = `${spot.User.firstName} ${spot.User.lastName}`
 
     let isHost = false;
-    if (user && spot.ownerId === user.id) isHost = true;
+    if (user && spot?.ownerId === user.id) isHost = true;
 
 
     let sumRatings = 0;
@@ -77,6 +79,7 @@ function SpotsDetail() {
         }
         return images;
     }
+    if (!spot) return null
     if (!spotArr.length) return null
     return (
         <div className="spot-detail-wrapper">
@@ -113,10 +116,10 @@ function SpotsDetail() {
 
                         </div>
                     </div>
-                    {/* <button className="reserve-button"><OpenModalButton
+                    <button className="reserve-button"><OpenModalButton
                         itemText="Reserve"
-                        modalComponent={<UpcomingFeatureModal />} /></button> */}
-                    <button onClick={() => alert('Feature coming soon')} className="reserve-button">Reserve</button>
+                        modalComponent={<CreateBookingModal spotId={spot.id} />} /></button>
+                    {/* <button onClick={() => alert('Feature coming soon')} className="reserve-button">Reserve</button> */}
 
                 </div>
 

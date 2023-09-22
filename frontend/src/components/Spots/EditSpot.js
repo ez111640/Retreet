@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { postImage, postSpot } from "../../store/spots";
+import { getAllSpots, postImage, postSpot } from "../../store/spots";
 import { useState, useEffect } from "react";
 import { useHistory, useParams } from 'react-router-dom'
 import { editSpot } from "../../store/spots";
@@ -8,54 +8,69 @@ import { getOneSpot } from "../../store/spots";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
 function EditSpot() {
-    const spot = useSelector(state => state.spotsState.spot)
-    const [name, setName] = useState(spot.name);
-    const [description, setDescription] = useState(spot.description);
-    const [lng, setLng] = useState(spot.lng);
-    const [lat, setLat] = useState(spot.lat);
-    const [city, setCity] = useState(spot.city);
-    const [state, setState] = useState(spot.state);
-    const [address, setAddress] = useState(spot.address);
-    const [country, setCountry] = useState(spot.country);
-    const [price, setPrice] = useState(spot.price);
-    const [previewImage, setPreviewImage] = useState(spot.previewImage[0].url);
-    const [imgOne, setImgOne] = useState(spot.previewImage[1]?.url);
-    const [imgTwo, setImgTwo] = useState(spot.previewImage[2]?.url);
-    const [imgThree, setImgThree] = useState(spot.previewImage[3]?.url);
-    const [imgFour, setImgFour] = useState(spot.previewImage[4]?.url)
-    const sessionUser = useSelector(state => state.session.user)
-    const history = useHistory();
+    const allSpots = useSelector(state => state.spotsState)
+    console.log("ALLSPOTS", allSpots)
+    let spots
+    let spot
+    if (allSpots) spots = Object.values(allSpots)
+    const { spotId } = useParams();
+    console.log("SPOTS", spots)
 
-    const {spotId } = useParams();
+    console.log("SPOTID", spotId)
+
+    if (spots.length) {
+        for (let i = 0; i < spots.length; i++) {
+            if (spots[i]?.id == spotId) {
+                spot = spots[i]
+            }
+        }
+    }
+    console.log("SPOT", spot)
+    const [name, setName] = useState(spot?.name);
+    const [description, setDescription] = useState(spot?.description);
+    const [lng, setLng] = useState(spot?.lng);
+    const [lat, setLat] = useState(spot?.lat);
+    const [city, setCity] = useState(spot?.city);
+    const [state, setState] = useState(spot?.state);
+    const [address, setAddress] = useState(spot?.address);
+    const [country, setCountry] = useState(spot?.country);
+    const [price, setPrice] = useState(spot?.price);
+    const [previewImage, setPreviewImage] = useState(spot?.previewImage);
 
     const dispatch = useDispatch();
 
-        useEffect(()=> {
-            dispatch(getOneSpot(spotId));
-        },[dispatch])
+
+    const [imgOne, setImgOne] = useState(spot?.images ? spot.images[0]?.url : null);
+    const [imgTwo, setImgTwo] = useState(spot?.images ? spot.images[1]?.url : null);
+    const [imgThree, setImgThree] = useState(spot?.images ? spot.images[2]?.url : null);
+    const [imgFour, setImgFour] = useState(spot?.images ? spot.images[3]?.url : null)
+    const sessionUser = useSelector(state => state.session.user)
+    const history = useHistory();
+
+
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         let spotImages = [
             {
-                url: previewImage,
+                url: previewImage ? previewImage : spot.previewImage,
                 preview: true
             },
             {
-                url: imgOne,
+                url: imgOne ? imgOne : spot.images[0],
                 preview: false
             },
             {
-                url: imgTwo,
+                url: imgTwo ? imgTwo : spot.images[1],
                 preview: false
             },
             {
-                url: imgThree,
+                url: imgThree ? imgThree : spot.images[2],
                 preview: false
             },
             {
-                url: imgFour,
+                url: imgFour ? imgFour : spot.images[3],
                 preview: false
             }
         ]
@@ -72,18 +87,22 @@ function EditSpot() {
 
 
 
-            dispatch(editSpot(updatedSpot, spotImages, sessionUser))
+        await dispatch(editSpot(updatedSpot, spotImages, sessionUser))
         history.push(`/spots/${spotId}`)
 
 
     }
 
+    useEffect(() => {
+        dispatch(getAllSpots());
+    }, [dispatch])
 
-
+    if(!spot) return null
+    if (!spots.length) return null
     return (
         <div className="form-container">
             <div className="spot-form-header">
-                 <h1>Edit a spot</h1>
+                <h1>Edit a spot</h1>
             </div>
             <div>
                 <form onSubmit={handleSubmit}>
