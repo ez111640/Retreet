@@ -52,8 +52,6 @@ router.get('/current', requireAuth, async (req, res) => {
 router.put('/:bookingId', requireAuth, async (req, res) => {
     const thisBooking = await Booking.findByPk(req.params.bookingId)
 
-
-
     if (!thisBooking) {
         res.status(404)
         const err = new Error("Booking not found")
@@ -69,9 +67,6 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
             message: "Forbidden"
         })
     }
-
-
-
     const currentDate = new Date();
 
     const end = new Date(thisBooking.toJSON().endDate.toDateString())

@@ -63,7 +63,7 @@ export const deleteReview = (reviewId) => async dispatch => {
     const response = await csrfFetch(`/api/reviews/${reviewId}`, {
         method: 'DELETE'
     })
-    dispatch(removeReview(reviewId))
+    await dispatch(removeReview(reviewId))
 }
 
 export const postReview = (spot, reviewInfo, user) => async dispatch => {
@@ -82,7 +82,7 @@ export const postReview = (spot, reviewInfo, user) => async dispatch => {
     if (response.ok) {
         const newReview = await response.json();
         newReview.User = user;
-         dispatch(addReview(newReview))
+         await dispatch(addReview(newReview))
 
         return newReview;
 
@@ -102,10 +102,10 @@ export const updateReview = (id, review) => async dispatch => {
     })
     if (response.ok) {
         const newReview = await response.json();
-        dispatch(editReview(review))
+        await dispatch(editReview(review))
         return newReview
     } else {
-        const err = response.json();
+        const err = await response.json();
         return err;
     }
 }

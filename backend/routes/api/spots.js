@@ -184,6 +184,7 @@ router.get('/:spotId/reviews', async (req, res) => {
 
 router.get('/:spotId/bookings', requireAuth, async (req, res) => {
     const thisId = parseInt(req.params.spotId)
+    console.log("INROUTE", thisId)
 
 
     const spot = await Spot.findByPk(thisId)
@@ -213,7 +214,8 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
     })
 
     if (spot.ownerId !== req.user.id) thisBooking = nonOwnerBookings;
-    else thisBooking = ownerBookings
+    else
+        thisBooking = ownerBookings
 
     return res.json({ Bookings: thisBooking })
 })
@@ -267,7 +269,7 @@ router.get("/:spotId/images", async (req, res, next) => {
     })
 
     if (!spotImages.length) {
-        res.status(200) 
+        res.status(200)
         return res.json({
             message: "No images yet"
         })
@@ -321,6 +323,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
 router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
     const { startDate, endDate } = req.body;
     const ownerId = parseInt(req.user.id)
+    console.log("OWNERID", ownerId)
     const id = parseInt(req.params.spotId)
 
 
@@ -344,7 +347,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
     if (spot.toJSON().ownerId === ownerId) {
         res.status(403)
         return res.json({
-            message: "Forbidden"
+            message: "You can't book your own spot"
         })
     }
 
