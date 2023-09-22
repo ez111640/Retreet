@@ -6,6 +6,7 @@ import './navigation.css';
 import { useState } from 'react';
 import { LocationSearch } from './locationSearch';
 import OpenModalMenuItem from './OpenModalMenuItem';
+import { GuestSearch } from './guestsSearch';
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
@@ -29,8 +30,11 @@ function Navigation({ isLoaded }) {
     e.preventDefault()
     if (whereOption === "eso-inactive") setWhereOption("eso-active")
     setActiveStart(false)
-    setActiveWhere(false)
+    setActiveWhere(!activeWhere)
+    setActiveEnd(false)
     setStartOption("eso-inactive")
+    setEndOption("eso-inactive")
+    setWhoOption("eso-inactive")
   }
 
   const extendMakeActiveStart = (e) => {
@@ -38,31 +42,36 @@ function Navigation({ isLoaded }) {
     if (startOption === "eso-inactive") setStartOption("eso-active")
     else setStartOption("eso-inactive")
     setActiveWhere(true)
+    setActiveEnd(false)
     setActiveStart(!activeStart)
+    setActiveWho(false)
     setWhereOption("eso-inactive")
+    setEndOption("eso-inactive")
+    setWhoOption("eso-inactive")
   }
 
   const extendMakeActiveEnd = (e) => {
     e.preventDefault();
     if (endOption === "eso-inactive") setEndOption("eso-active")
+    else setEndOption("eso-inactive")
     setActiveWhere(true)
-    setActiveStart(true)
-    setActiveWho(true)
-    setActiveEnd(false)
+    setActiveStart(false)
+    setActiveWho(false)
+    setActiveEnd(!activeEnd)
     setWhereOption("eso-inactive")
     setStartOption("eso-inactive")
     setWhoOption("eso-inactive")
-
 
   }
 
   const extendMakeActiveWho = (e) => {
     e.preventDefault();
     if (whoOption === "eso-inactive") setWhoOption("eso-active")
+    else setWhoOption("eso-inactive")
     setActiveWhere(true)
-    setActiveStart(true)
-    setActiveEnd(true)
-    setActiveWho(false)
+    setActiveStart(false)
+    setActiveEnd(false)
+    setActiveWho(!activeWho)
     setWhereOption("eso-inactive")
     setStartOption("eso-inactive")
     setEndOption("eso-inactive")
@@ -155,13 +164,29 @@ function Navigation({ isLoaded }) {
               }
             </ul>
           </li>
-          <li onClick={extendMakeActiveEnd}>
-            <div className="extend-search-option-title">Check out</div>
-            <div className="extend-search-option-sub" >Add dates</div>
+          <li className={"eso-where " + endOption}>
+            <ul>
+              <li onClick={extendMakeActiveEnd}>
+                <div className="extend-search-option-title">Check out</div>
+                <div className="extend-search-option-sub" >Add dates</div>
+              </li>
+              {!activeEnd ? <li></li> :
+                <li>
+                  <input type="date"></input>
+                </li>
+              }
+            </ul>
           </li>
-          <li onClick={extendMakeActiveWho}>
-            <div className="extend-search-option-title">Who</div>
-            <div className="extend-search-option-sub" >Add guests</div>
+          <li className={"eso-where " + whoOption}>
+            <ul>
+              <li onClick={extendMakeActiveWho}>
+                <div className="extend-search-option-title">Who</div>
+                <div className="extend-search-option-sub" >Add guests</div>
+              </li>
+              {!activeWho ? <li></li> :
+                <GuestSearch />
+              }
+            </ul>
           </li>
           <div className="search-button"><i className="fa-solid fa-magnifying-glass"></i></div>
         </ul>

@@ -68,7 +68,6 @@ export const deleteReview = (reviewId) => async dispatch => {
 
 export const postReview = (spot, reviewInfo, user) => async dispatch => {
     console.log("USER IN THUNK" , user)
-    const { review, stars } = reviewInfo
     const response = await csrfFetch(`/api/spots/${spot.id}/reviews`,
         {
             method: 'POST',

@@ -121,7 +121,7 @@ a:link {
     padding-inline-start: 0px;
 }
 
-.where-div{
+.where-div {
     padding-inline-start: 0px;
 }
 
@@ -148,20 +148,21 @@ a:link {
     color: #7E7E7E;
 }
 
-.eso-active, .eso-inactive {
+.eso-active,
+.eso-inactive {
 
     height: 100%;
 }
 
-.eso-active{
+.eso-active {
     background-color: white;
     height: 50px;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
     border-radius: 30px;
     padding-left: 20px;
-        display: grid;
-        align-items: center;
-        row-gap: 0px;
+    display: grid;
+    align-items: center;
+    row-gap: 0px;
 }
 
 
@@ -169,7 +170,7 @@ a:link {
     border: 1px solid red;
     height: 50px;
     background-color: transparent;
-padding-left: 20px;
+    padding-left: 20px;
     display: grid;
     align-items: center;
     row-gap: 0px;
@@ -209,12 +210,48 @@ padding-left: 20px;
     border-radius: 20px;
 }
 
+.grow {
+    transition: all .2s ease-in-out;
+}
+
+.grow:hover {
+    transform: scale(1.1);
+}
+
 .location-img:hover {
     border: 1px solid black;
 }
 
-.start-div{
+.start-div {
     position: absolute;
     top: 200px;
     z-index: 2;
+}
+
+
+
+/* Guest Search */
+.guest-div {
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    row-gap: 20px;
+    position: absolute;
+    top: 200px;
+    background-color: white;
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.guest-specs {
+    display: flex;
+    justify-content: space-between;
+}
+
+.guest-type{
+    display: grid;
+}
+
+
+.guest-counter{
+    display: flex;
 }
