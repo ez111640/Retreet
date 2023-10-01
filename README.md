@@ -1,10 +1,19 @@
-# [title]
+# Link to Live Site
+
+https://air-bnb-project-udn9.onrender.com
 
 ## Database Schema Design
 
 ![db-schema]
 
 [db-schema]: ./images/example.png
+
+##Technologies Used
+-Express
+-React
+-Sequelize
+-Redux
+-Node.js
 
 ## API Documentation
 
